@@ -13,5 +13,7 @@ As it takes a very long time to complete sorting the whole shakespeare file,
 we have tested the algorithms on a short section of the file instead, with the following times to compare:
 
 MergeSort = 78ms
+
 SelectionSort = 169ms
+
 InsertionSort = 199ms
