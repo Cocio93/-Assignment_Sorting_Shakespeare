@@ -14,8 +14,58 @@ import java.util.Arrays;
  */
 public class TextSorter {
 
+    private String[] array;
+
     public TextSorter() {
 
+    }
+
+    public String[] quickSort(String[] words) {
+        this.array = words;
+        int low = 0;
+        int high = words.length - 1;
+
+        sort(low, high);
+
+        return this.array;
+
+    }
+
+    //Actually quickSort Logic
+    private void sort(int lowerIndex, int higherIndex) {
+
+        int i = lowerIndex;
+        int j = higherIndex;
+
+        String pivot = array[lowerIndex + (higherIndex - lowerIndex) / 2];
+
+        while (i <= j) {
+
+            while (array[i].compareTo(pivot) < 0) {
+                i++;
+            }
+            while (array[j].compareTo(pivot) > 0) {
+                j--;
+            }
+            if (i <= j) {
+                exchangeNumbers(i, j);
+                i++;
+                j--;
+            }
+        }
+        if (lowerIndex < j) {
+            sort(lowerIndex, j);
+        }
+
+        if (i < higherIndex) {
+            sort(i, higherIndex);
+        }
+    }
+
+    private void exchangeNumbers(int i, int j) {
+        String temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
     }
 
     public String[] selectionSort(String[] words) {
@@ -57,22 +107,23 @@ public class TextSorter {
         if (words.length <= 1) {
             return words;
         }
-        
+
         int i = 0;
         int n = words.length;
-        int q = words.length/2;
-        
-        
+        int q = words.length / 2;
+
         String[] left = Arrays.copyOfRange(words, i, q);
-        String[] right = Arrays.copyOfRange(words, q+1, n);
-        
+        String[] right = Arrays.copyOfRange(words, q, n);
+
         left = mergeSort(left);
         right = mergeSort(right);
-        
+
         return merge(left, right);
     }
 
     private String[] merge(String[] left, String[] right) {
+//        System.out.println("LEFT: " + Arrays.toString(left));
+//        System.out.println("RIGHT: " + Arrays.toString(right));
         ArrayList<String> result = new ArrayList();
 
         while (left.length != 0 && right.length != 0) {
